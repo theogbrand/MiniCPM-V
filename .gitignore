@@ -1,3 +1,7 @@
 *.bk
 __pycache__
 .DS_Store
+eval_mm/vlmevalkit/torchvision-0.17.0+cu118-cp310-cp310-linux_x86_64.whl
+eval_mm/vlmevalkit/flash_attn-2.6.3+cu118torch2.2cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+eval_mm/vlmevalkit/torch-2.2.0+cu118-cp310-cp310-linux_x86_64.whl
+eval_mm/vlmevalkit/vlmeval.egg-info/*

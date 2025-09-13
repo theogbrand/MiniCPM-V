@@ -26,7 +26,7 @@ for DATASET in $DATALIST; do
     torchrun --master_port 29501 --nproc_per_node=8 run.py --data $DATASET --model $MODELNAME --mode infer --reuse
 
     # for benchmarks which require gpt for scoring, you need to specify OPENAI_API_BASE and OPENAI_API_KEY in .env file
-    if [[ "$DATASET" == *"MMBench_TEST"*]]; then
+    if [[ "$DATASET" == *"MMBench_TEST"* ]]; then
         echo "Skipping evaluation for dataset $DATASET"
     else
         echo "Starting evaluation with model $MODELNAME on datasets $DATASET"
