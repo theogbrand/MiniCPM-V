@@ -128,7 +128,7 @@ class OpenAIWrapper(BaseAPI):
 
             if api_base in APIBASES:
                 self.api_base = APIBASES[api_base]
-            elif api_base.startswith('http'):
+            elif api_base.startswith('https'):
                 self.api_base = api_base
             else:
                 self.logger.error('Unknown API Base. ')

@@ -4,8 +4,30 @@ export HF_ENDPOINT=https://hf-mirror.com
 export OMP_NUM_THREADS=1
 export timestamp=`date +"%Y%m%d%H%M%S"`
 export OLD_VERSION='False'
-export PYTHONPATH=$(dirname $SELF_DIR):$PYTHONPATH
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PYTHONPATH=$(dirname $SCRIPT_DIR):$PYTHONPATH
 export CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7"
+
+# Load environment variables from .env file if it exists
+if [ -f .env ]; then
+    echo "Loading .env file..."
+    export $(cat .env | grep -v '^#' | xargs)
+    
+    # Echo first few characters to verify loading
+    if [ -n "$OPENAI_API_KEY" ]; then
+        echo "OPENAI_API_KEY loaded: ${OPENAI_API_KEY:0:8}..."
+    else
+        echo "WARNING: OPENAI_API_KEY not found in .env"
+    fi
+    
+    if [ -n "$OPENAI_API_BASE" ]; then
+        echo "OPENAI_API_BASE loaded: ${OPENAI_API_BASE:0:20}..."
+    else
+        echo "WARNING: OPENAI_API_BASE not found in .env"
+    fi
+else
+    echo "WARNING: .env file not found"
+fi
 
 # gpu consumed
 # fp16 17-18G
@@ -19,7 +41,6 @@ MODELNAME=$1
 DATALIST=$2
 
 # run on multi gpus with torchrun command
-# remember to run twice, the first run may fail
 for DATASET in $DATALIST; do
     echo "Starting inference with model $MODELNAME on dataset $DATASET"
     torchrun --master_port 29500 --nproc_per_node=8 run.py --data $DATASET --model $MODELNAME --mode infer --reuse
