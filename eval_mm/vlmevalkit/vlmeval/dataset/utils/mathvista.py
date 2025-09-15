@@ -64,6 +64,7 @@ Then extract the answer from the model response and type it at the end of the pr
     prompt += question + '\n'
     prompt += 'Model respone: ' + prediction
     prompt += 'Extracted answer:'
+    print(f'mathvista gpt4 prompt: {prompt}')
     return prompt
 
 

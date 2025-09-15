@@ -455,7 +455,7 @@ class MiniCPM_V_2_6(BaseModel):
                         resized_image = image.resize((new_img_width, new_img_height))
                         content.append(resized_image)
         msgs = [{'role': 'user', 'content': content}]
-
+        print(f'minicpm_v_2_6 msgs: {msgs}')
         res = self.model.chat(
             image=None,
             msgs=msgs,
