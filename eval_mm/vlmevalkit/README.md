@@ -6,6 +6,13 @@ uv pip install 'torch-2.2.0+cu118-cp310-cp310-linux_x86_64.whl'
 uv pip install 'torchvision-0.17.0+cu118-cp310-cp310-linux_x86_64.whl'
 uv pip install 'flash_attn-2.6.3+cu118torch2.2cxx11abiFALSE-cp310-cp310-linux_x86_64.whl'
 
+## Manual pipeline to edit XSLX file for VLM extraction pipeline
+### extract all model outputs ("raw_full_prediction_text") to a CSV file
+python extract_predictions_to_csv.py /scratch_aisg/SPEC-SF-AISG/ob1/mmr-eval/evaluation/base_model_eval_code/outputs/M26/mathvista_testmini-results/result-0-1000-20250915_180318.json -o base_model_1.csv
+
+### replace the original predictions from the VLMEvalKit output with the new predictions from the CSV file
+python replace_predictions.py
+
 ## Messages sent to model structure:
 [{'role': 'user', 'content': ['Answer the question using a single word or phrase.', <PIL.Image.Image image mode=RGB size=131x60 at 0x155236523520>, 'Hint: Please answer the question and provide the correct option letter, e.g., A, B, C, D, at the end.\nQuestion: △ABC的两内角平分线OB、OC相交于点O，若∠A＝110°，则∠BOC＝（）\nChoices:\n(A) 135°\n(B) 140°\n(C) 145°\n(D) 150°']}]
 
